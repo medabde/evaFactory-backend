@@ -1,87 +1,75 @@
 package com.evafactory.co.evaFactorybackend.modules;
 
 
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+
+@Entity
 public class Etudiant {
-    private String empId;
-    private String name;
-    private String designation;
-    private double salary;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int id;
 
-    public Etudiant() {
+    private String cin;
+    private String nom;
+    private String prenom;
+    private String num;
+    private String email;
+    private String passwd;
+
+
+    public int getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public String getCIN() {
+        return cin;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
-    public String getDesignation() {
-        return designation;
+    public String getNom() {
+        return nom;
     }
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public double getSalary() {
-        return salary;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
-    public String getEmpId() {
-        return empId;
+    public String getNum() {
+        return num;
     }
 
-    public void setEmpId(String empId) {
-        this.empId = empId;
+    public void setNum(String num) {
+        this.num = num;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((designation == null) ? 0 : designation.hashCode());
-        result = prime * result + ((empId == null) ? 0 : empId.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        long temp;
-        temp = Double.doubleToLongBits(salary);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        return result;
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Etudiant other = (Etudiant) obj;
-        if (designation == null) {
-            if (other.designation != null)
-                return false;
-        } else if (!designation.equals(other.designation))
-            return false;
-        if (empId == null) {
-            if (other.empId != null)
-                return false;
-        } else if (!empId.equals(other.empId))
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (Double.doubleToLongBits(salary) != Double.doubleToLongBits(other.salary))
-            return false;
-        return true;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 
 }
