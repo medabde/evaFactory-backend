@@ -2,7 +2,9 @@ package com.evafactory.co.evaFactorybackend.controllers;
 
 
 import com.evafactory.co.evaFactorybackend.Repos.EtudiantRepository;
+import com.evafactory.co.evaFactorybackend.Repos.FormationRepository;
 import com.evafactory.co.evaFactorybackend.modules.Etudiant;
+import com.evafactory.co.evaFactorybackend.modules.Formation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,65 +19,44 @@ public class TestController {
 
     @Autowired
     private EtudiantRepository etudiantRepository;
+    @Autowired
+    private FormationRepository formationRepository;
 
-
-    private List<Etudiant> etudiants = createList();
-
-
-    @RequestMapping("/")
-    public String sayHello(){
-        etudiantRepository.save(etudiants.get(0));
-        return "hellooo "+etudiants.get(1).getId();
-    }
+    //etudiants
 
     @RequestMapping(value = "/etudiants", method = RequestMethod.GET, produces = "application/json")
     public List<Etudiant> firstPage() {
         return (List<Etudiant>)etudiantRepository.findAll();
     }
-
     @RequestMapping(value = "/etudiants/delete/{id}", method = RequestMethod.GET)
     public Etudiant delete(@PathVariable("id") long id) {
         Etudiant deletedEtudiant = etudiantRepository.findById((int)id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         etudiantRepository.delete(deletedEtudiant);
         return deletedEtudiant;
     }
-
-    @RequestMapping(value = "/etudiants/edit", method = RequestMethod.GET)
-    public Etudiant edit(@RequestBody Etudiant etudiant) {
-        etudiantRepository.save(etudiant);
-        return etudiant;
-    }
-
-//    @RequestMapping(value = "/etudiants/add", method = RequestMethod.GET)
-//    public Etudiant add(@RequestBody Etudiant etudiant) {
-//        etudiantRepository.save(etudiant);
-//        return etudiant;
-//    }
-//
-
     @PostMapping
     public Etudiant create(@RequestBody Etudiant etudiant) {
         etudiantRepository.save(etudiant);
         return etudiant;
     }
 
-    private static List<Etudiant> createList() {
-        List<Etudiant> tempEtudiant = new ArrayList<>();
-        Etudiant emp1 = new Etudiant();
-        emp1.setNom("emp1");
-        emp1.setPrenom("manager");
-        emp1.setNum("065874");
-        emp1.setCin("FA1058");
+    //formations
 
-        Etudiant emp2 = new Etudiant();
-        emp2.setNom("emp2");
-        emp2.setPrenom("developer");
-        emp2.setNum("06705485");
-        emp2.setCin("FAfjasd");
-        tempEtudiant.add(emp1);
-        tempEtudiant.add(emp2);
+    @RequestMapping(value = "/formations", method = RequestMethod.GET, produces = "application/json")
+    public List<Formation> formations() {
+        return (List<Formation>)formationRepository.findAll();
+    }
+    @RequestMapping(value = "/formations/delete/{id}", method = RequestMethod.GET)
+    public Formation deleteformation(@PathVariable("id") long id) {
+        Formation deletedEtudiant = formationRepository.findById((int)id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        formationRepository.delete(deletedEtudiant);
+        return deletedEtudiant;
+    }
 
-        return tempEtudiant;
+    @PostMapping(path = "/formations/add")
+    public Formation createformation(@RequestBody Formation formation) {
+        formationRepository.save(formation);
+        return formation;
     }
 
 }
